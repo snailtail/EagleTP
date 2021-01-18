@@ -1,0 +1,31 @@
+﻿@page "/dicetest"
+
+@using EagleTP.Data
+@inject DiceService myDiceService
+
+<h3>Dicetest</h3>
+
+@if (myDice == 0)
+{
+    <p>Roll dice</p>
+}
+else
+{
+    <p>@myDice</p>
+}
+<button @onclick="DiceMe">Roll Dice!</button>
+
+
+@code {
+
+    private int myDice;
+    
+    /*protected override async Task OnInitializedAsync()
+    {
+        myQuestion = await myCard.ReadCard();
+    }*/
+    private async Task DiceMe()
+    {
+        myDice = await myDiceService.Roll();
+    }
+}
