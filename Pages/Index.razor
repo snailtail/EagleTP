@@ -1,6 +1,34 @@
 @page "/"
+@using System.IO
 
 <h1>Hello, Couch-Eagles!</h1>
 
 Eagle TP, the home of TP-inclined Couch-Eagles.
 
+
+@if (result==null)
+{
+    <p>Go roll a dice!</p>
+}
+else
+{
+    <p>Last dice roll: @result</p>
+}
+
+<button @onclick="CheckDice">Check dice</button>
+
+@code {
+    private string result;
+    private async Task CheckDice()
+    {
+        if(File.Exists("dice.txt"))
+        {
+            using (StreamReader reader = File.OpenText("dice.txt"))
+            {
+                result = await reader.ReadToEndAsync();
+            }
+        }
+        
+    }
+
+}

@@ -1,6 +1,7 @@
 ﻿@page "/dicetest"
 
 @using EagleTP.Data
+@using System.IO
 @inject DiceService myDiceService
 
 <h3>Dicetest</h3>
@@ -27,5 +28,9 @@ else
     private async Task DiceMe()
     {
         myDice = await myDiceService.Roll();
+        using (StreamWriter writer = File.CreateText("dice.txt"))
+        {
+            await writer.WriteAsync(myDice.ToString());
+        }
     }
 }
